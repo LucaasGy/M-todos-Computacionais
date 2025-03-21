@@ -18,8 +18,8 @@ function r = bisseccao(f, a, b, e, N)
     intervalo = abs(b - a);
     
     % Verificar se o intervalo inicial já atende à tolerância
-    r = (a + b) / 2;
     if intervalo < e
+        r = (a + b) / 2;
         fprintf('Intervalo inicial já atende à tolerância. Raiz aproximada r = %.6f\n', r);
         return;
     end
