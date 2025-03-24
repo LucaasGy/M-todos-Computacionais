@@ -14,34 +14,31 @@ function r = bisseccao(f, a, b, e, N)
         error('Erro: Não há mudança de sinal no intervalo fornecido. Algoritmo encerrado.');
     end
 
-    % Calcular tamanho inicial do intervalo
-    intervalo = abs(b - a);
-    
-    % Verificar se o intervalo inicial já atende à tolerância
-    if intervalo < e
-        r = (a + b) / 2;
-        fprintf('Intervalo inicial já atende à tolerância. Raiz aproximada r = %.6f\n', r);
-        return;
-    end
-    
-    fprintf('Iteração\t a\t\t f(a)\t\t b\t\t f(b)\t\t r\t\t f(r)\t\t Intervalo\n');
-    fprintf('-------------------------------------------------------------------------------------------------\n');
-    
     % Inicializar contagem de iterações
     k = 1;
-    
+    r_antigo = a;  % Para calcular erro relativo
+    erro_relativo = Inf;  % Inicializar como infinito
+
+    fprintf('Iteração\t a\t\t f(a)\t\t b\t\t f(b)\t\t r\t\t f(r)\t\t Erro Relativo\t Intervalo\n');
+    fprintf('-------------------------------------------------------------------------------------------------\n');
+
     while k <= N
         % Calcular ponto médio
         r = (a + b) / 2;
         fr = f(r);
         intervalo = abs(b - a);
+        
+        % Calcular erro relativo (primeira iteração não considerada)
+        if k > 1
+            erro_relativo = abs((r - r_antigo) / r);
+        end
 
         % Exibir estado atual da iteração
-        fprintf('%d\t\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\n', ...
-            k, a, fa, b, fb, r, fr, intervalo);
+        fprintf('%d\t\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\n', ...
+            k, a, fa, b, fb, r, fr, erro_relativo, intervalo);
 
-        % Verificar critério de parada
-        if intervalo < e
+        % Caso: erro relativo seja menor que a tolerância ou intervalo seja menor que a tolerância de erro
+        if erro_relativo < e || intervalo < e
             fprintf('Convergência atingida: Raiz aproximada r = %.6f após %d iterações.\n', r, k);
             return;
         end
@@ -54,19 +51,12 @@ function r = bisseccao(f, a, b, e, N)
             a = r;
             fa = fr;
         end
-
-        % Incrementar iteração
+        
+        % Atualizar r_antigo e incrementar a iteração
+        r_antigo = r;
         k = k + 1;
     end
-    
+
     % Caso o número máximo de iterações seja atingido sem convergência
     fprintf('Número máximo de iterações atingido. Raiz aproximada r = %.6f\n', r);
 end
-
-f = @(x) sin(x) - x.^2;
-a = 0.5;  % Limite inferior
-b = 1;  % Limite superior
-N = 20;   % Máximo de iterações
-e = 0.02   % Tolerância de erro
-
-bisseccao(f, a, b, N);
