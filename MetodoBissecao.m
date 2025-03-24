@@ -60,3 +60,11 @@ function r = bisseccao(f, a, b, e, N)
     % Caso o número máximo de iterações seja atingido sem convergência
     fprintf('Número máximo de iterações atingido. Raiz aproximada r = %.6f\n', r);
 end
+
+f = @(x) sin(x) - x.^2;
+a = 0.5;  % Limite inferior
+b = 1;  % Limite superior
+N = 20;   % Máximo de iterações
+e = 0.02;   % Tolerância de erro
+
+bisseccao(f, a, b, N);
