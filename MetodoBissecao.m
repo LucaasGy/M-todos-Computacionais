@@ -67,4 +67,4 @@ b = 1;  % Limite superior
 N = 20;   % Máximo de iterações
 e = 0.02;   % Tolerância de erro
 
-bisseccao(f, a, b, N);
+bisseccao(f, a, b, e, N);
