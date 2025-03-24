@@ -19,6 +19,11 @@ function r = falsa_posicao(f, a, b, e, N)
     
     % Verificar se o intervalo inicial já atende à tolerância
     if Tinter < e
+        % Evitar divisão por zero
+        if fb - fa == 0
+            error('Erro: Divisão por zero ao calcular nova raiz.');
+        end
+        
         r = (a * fb - b * fa) / (fb - fa);
         fprintf('Intervalo inicial já atende à tolerância. Raiz aproximada r = %.6f\n', r);
         return;
@@ -42,10 +47,14 @@ function r = falsa_posicao(f, a, b, e, N)
     k = 1;
     
     while k <= N
+        % Evitar divisão por zero
+        if fb - fa == 0
+            error('Erro: Divisão por zero ao calcular nova raiz.');
+        end
+    
         % Calcular ponto de Falsa Posição
         r = (a * fb - b * fa) / (fb - fa);
         fr = f(r);
-        Tinter = abs(b - a);
         
         % Exibir estado atual da iteração
         fprintf('%d\t\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\t %.6f\n', ...
@@ -77,7 +86,7 @@ function r = falsa_posicao(f, a, b, e, N)
     fprintf('Número máximo de iterações atingido. Última aproximação r = %.6f\n', r);
 end
 
-f = @(x) x^3 - 9*x + 3;
+f = @(x) x.^3 - 9*x + 3;
 a = 0;  % Limite inferior
 b = 1;  % Limite superior
 e = 0.001;  % Tolerância de erro
