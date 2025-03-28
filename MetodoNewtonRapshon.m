@@ -41,7 +41,8 @@ function raiz = newton_raphson(f, df, x0, tol, N)
       return;
     end
     
-    xr = x_new; % Atualiza a estimativa da raiz
+    % Atualiza o valor para a próxima iteração
+    xr = x_new;
   end
   
   printf("\nMétodo falhou em %d iterações.\n", N);
