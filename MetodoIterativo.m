@@ -13,7 +13,10 @@ function raiz = iteracao_linear(f, g, x0, tol, N)
   printf("Iter\tXr\t\tf(Xr)\t\tEa(%%)\n");
   printf("-------------------------------------------------\n");
   
-  while iter <= N
+  % Exibir a primeira iteração (x0)
+  printf("%d\t%.6f\t%.6f\t-\n", iter, xr, f(xr));
+  
+  while iter < N
     x_ant = xr;
     xr = g(x_ant); % Calcula próximo valor da raiz
     iter = iter + 1;
