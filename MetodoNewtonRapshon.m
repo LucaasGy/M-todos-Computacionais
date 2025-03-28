@@ -13,7 +13,10 @@ function raiz = newton_raphson(f, df, x0, tol, N)
   printf("Iter\tXr\t\tf(Xr)\t\tEa(%%)\n");
   printf("-------------------------------------------------\n");
 
-  for iter = 1:N
+  % Exibir a primeira iteração (x0)
+  printf("%d\t%.6f\t%.6f\t-\n", iter, xr, f(xr));
+  
+  while iter < N
     if df(xr) == 0
       printf("Erro: Derivada é zero, método falhou.\n");
       raiz = NaN;
@@ -21,6 +24,7 @@ function raiz = newton_raphson(f, df, x0, tol, N)
     end
     
     x_new = xr - ( f(xr) / df(xr) ); % Fórmula de Newton-Raphson
+    iter = iter + 1;
     
     % Calcula erro relativo percentual
     if x_new != 0
@@ -28,7 +32,7 @@ function raiz = newton_raphson(f, df, x0, tol, N)
     end
     
     % Exibe os valores na tela
-    printf("%d\t%.6f\t%.6f\t%.6f\n", iter, xr, f(xr), ea);
+    printf("%d\t%.6f\t%.6f\t%.6f\n", iter, x_new, f(x_new), ea);
     
     % Critério de parada
     if ea < tol
