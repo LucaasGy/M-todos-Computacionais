@@ -12,7 +12,7 @@ function raiz = metodo_secante(f, x0, x1, tol, N)
     fprintf('Iter\tXr\t\tf(Xr)\t\tEa(%%)\n');
     fprintf('-------------------------------------------------\n');
 
-    % Exibir primeira iteração antes de calcular a próxima aproximação
+    % Exibir a primeira iteração (x0)
     fprintf('%d\t%.6f\t%.6f\t--\n', iter, x0, f(x0));
 
     while iter < N
