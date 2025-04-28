@@ -1,5 +1,3 @@
-clc; clear; close all;
-
 x = 0.5;                      
 valor_real = exp(x);          
 termo = 1;                    
